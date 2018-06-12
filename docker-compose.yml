@@ -12,7 +12,7 @@ services:
       - .:/app
 
   db:
-    image: postgres
+    image: postgres:alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

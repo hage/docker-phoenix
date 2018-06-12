@@ -1,15 +1,11 @@
-FROM elixir:latest
+FROM elixir:alpine
 
 ENV NODE_VERSION 8.x
 ENV NPM_VERSION 6.1.0
 
-RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash \
-    && apt-get install -y nodejs
-
-RUN npm install npm@${NPM_VERSION} -g
-
-run mix local.hex --force && \
-    mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez && \
-    mix local.rebar --force
-
+RUN apk add --update --no-cache nodejs \
+    && npm install npm@${NPM_VERSION} -g \
+    && mix local.hex --force \
+    && mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez \
+    && mix local.rebar --force
 WORKDIR /app
